@@ -12,7 +12,7 @@ import retrofit2.http.GET;
 public class Rest {
 
     public interface APIService {
-        @GET("person")
+        @GET("sms")
         Call<JsonArray> getPersons();
 
     }

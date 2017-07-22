@@ -15,18 +15,20 @@ public class Person {
     @SerializedName("name")
     public String name;
 
-    @SerializedName("phone")
-    public Integer phone;
-
+    @SerializedName("mobileNumber")
+    public String mobileNumber;
 
     @SerializedName("action")
     public String action;
 
-    @SerializedName("created_date")
-    public Date createdDate;
+    @SerializedName("timestamp")
+    public Date timestamp;
 
-    @SerializedName("coordinates")
-    public Coordinates coordinates;
+    @SerializedName("latitude")
+    public Double latitude;
+
+    @SerializedName("longitude")
+    public Double longitude;
 
 
     public static class Builder {
@@ -41,8 +43,8 @@ public class Person {
             return this;
         }
 
-        public Builder setPhone(Integer phone) {
-            person.phone = phone;
+        public Builder setMobileNumber(String mobileNumber) {
+            person.mobileNumber = mobileNumber;
             return this;
         }
 
@@ -51,8 +53,18 @@ public class Person {
             return this;
         }
 
-        public Builder setCreatedDate(Date createdDate) {
-            person.createdDate = createdDate;
+        public Builder setTimestamp(Date timestamp) {
+            person.timestamp = timestamp;
+            return this;
+        }
+
+        public Builder setLongitude(Double longitude) {
+            person.longitude = longitude;
+            return this;
+        }
+
+        public Builder setLatitude(Double latitude) {
+            person.latitude = latitude;
             return this;
         }
 
@@ -78,15 +90,6 @@ public class Person {
 
             Gson gson = new Gson();
             Person person = gson.fromJson(json, Person.class);
-            JsonObject jsonObject = json.getAsJsonObject();
-
-            if (jsonObject.has("coordinates")) {
-                JsonElement coordinates = jsonObject.get("coordinates");
-                if (coordinates != null && !coordinates.isJsonNull()) {
-                    person.coordinates = gson.fromJson(coordinates, Coordinates.class);
-                }
-            }
-
             return person;
         }
     }

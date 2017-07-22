@@ -4,15 +4,20 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.wanderast.bayanihan.R;
 import com.wanderast.bayanihan.model.Person;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PersonAdapter extends ArrayAdapter<Person> {
@@ -34,8 +39,23 @@ public class PersonAdapter extends ArrayAdapter<Person> {
 
         Person person = persons.get(position);
 
-//        TextView author = (TextView) view.findViewById(R.id.author);
-//        author.setText(item.author.givenName + " " + feed.get(position).author.familyName);
+        TextView author = (TextView) view.findViewById(R.id.name);
+        author.setText(person.name);
+
+        TextView location = (TextView) view.findViewById(R.id.location);
+        location.setText("(" + person.longitude + ", " + person.latitude + ")");
+
+        ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
+
+        Date now = new Date();
+
+        if(now.getTime() - person.timestamp.getTime() < (30 * 60 * 1000)) {
+            avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
+        } else if(now.getTime() - person.timestamp.getTime() < (60 * 60 * 1000)) {
+            avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_yellow));
+        } else {
+            avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
+        }
 
 
         return view;
