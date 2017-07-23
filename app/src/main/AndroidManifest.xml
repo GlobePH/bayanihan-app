@@ -31,6 +31,6 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/activity_widget_info" />
         </receiver>
-        <!--<service android:name=".activity.SosService" android:process=":my_service"/>-->
+        <service android:name=".activity.SosService" />
     </application>
 </manifest>
