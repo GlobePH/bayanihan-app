@@ -40,18 +40,15 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         Person person = persons.get(position);
 
         TextView author = (TextView) view.findViewById(R.id.name);
-        author.setText(person.name);
+        author.setText(person.message);
 
         TextView location = (TextView) view.findViewById(R.id.location);
-        location.setText("(" + person.longitude + ", " + person.latitude + ")");
+        location.setText(person.friendlyDate);
 
         ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
-
-        Date now = new Date();
-
-        if(now.getTime() - person.timestamp.getTime() < (30 * 60 * 1000)) {
+        if(person.category == "minor") {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
-        } else if(now.getTime() - person.timestamp.getTime() < (60 * 60 * 1000)) {
+        } else if(person.category == "major") {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_yellow));
         } else {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));

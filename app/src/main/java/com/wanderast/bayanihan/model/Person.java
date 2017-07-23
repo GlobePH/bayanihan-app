@@ -8,6 +8,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.annotations.SerializedName;
 
+import java.lang.reflect.Member;
 import java.lang.reflect.Type;
 import java.util.Date;
 
@@ -18,17 +19,17 @@ public class Person {
     @SerializedName("mobileNumber")
     public String mobileNumber;
 
-    @SerializedName("action")
-    public String action;
+    @SerializedName("message")
+    public String message;
 
     @SerializedName("timestamp")
     public Date timestamp;
 
-    @SerializedName("latitude")
-    public Double latitude;
+    @SerializedName("category")
+    public String category;
 
-    @SerializedName("longitude")
-    public Double longitude;
+    @SerializedName("friendlyDate")
+    public String  friendlyDate;
 
 
     public static class Builder {
@@ -48,8 +49,8 @@ public class Person {
             return this;
         }
 
-        public Builder setAction(String action) {
-            person.action = action;
+        public Builder setMessage(String message) {
+            person.message = message;
             return this;
         }
 
@@ -58,13 +59,13 @@ public class Person {
             return this;
         }
 
-        public Builder setLongitude(Double longitude) {
-            person.longitude = longitude;
+        public Builder setCategory(String category) {
+            person.category = category;
             return this;
         }
 
-        public Builder setLatitude(Double latitude) {
-            person.latitude = latitude;
+        public Builder setFriendlyDate(String friendlyDate) {
+            person.friendlyDate = friendlyDate;
             return this;
         }
 
