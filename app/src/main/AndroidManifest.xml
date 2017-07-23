@@ -3,8 +3,10 @@
     package="com.wanderast.bayanihan">
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-feature android:name="android.hardware.location.gps" />
     <application
         android:allowBackup="true"
@@ -20,6 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity android:name=".activity.SmsActivity" android:theme="@android:style/Theme.NoDisplay" />-->
+        <receiver android:name=".activity.SmsActivity" android:enabled="true" />
         <receiver android:name=".activity.WidgetActivity" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -27,7 +31,6 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/activity_widget_info" />
         </receiver>
-        <service android:name=".activity.SosService"
-            android:exported="false" />
+        <!--<service android:name=".activity.SosService" android:process=":my_service"/>-->
     </application>
 </manifest>

@@ -1,76 +1,63 @@
 package com.wanderast.bayanihan.activity;
 
-import android.app.IntentService;
-import android.app.PendingIntent;
+import android.Manifest;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.renderscript.Double2;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-public class SosService extends IntentService {
-
-    Double longitude, latitude;
-
-    GpsLocator locationListener;
-
-    LocationManager locationManager;
-
-    Location location = null;
-
-    public SosService() {
-        super("SosService");
-    }
+public class SosService extends Service {
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    public void onCreate() {
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        Log.v("Service", "Running");
+// Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                Log.i("latitude", location.getLatitude() + "");
+            }
 
-        locationListener = new GpsLocator();
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-        while(location == null) {
-            getLocation();
-        }
+            public void onProviderEnabled(String provider) {
+            }
 
-        Log.d("END:", "fin");
+            public void onProviderDisabled(String provider) {
+            }
+        };
 
-    }
-
-    public void setLocation(Location location) {
-        if(location != null && location.getAccuracy() < 20) {
-            longitude = location.getLongitude();
-            latitude = location.getLatitude();
+// Register the listener with the Location Manager to receive location updates
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        getLocation();
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, locationListener);
+
     }
 
-     public class GpsLocator implements LocationListener {
-        public void onLocationChanged(Location location) {
-            // Called when a new location is found by the network location provider.
-            setLocation(location);
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) { Log.d("asdasdss", "asdasd"); }
-
-        public void onProviderEnabled(String provider) { Log.d("asdasdss", "asdasd"); }
-
-        public void onProviderDisabled(String provider) { Log.d("asdasdss", "asdasd"); }
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
-    public void getLocation() {
 
-        try {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1, locationListener);
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        }
-    }
 }

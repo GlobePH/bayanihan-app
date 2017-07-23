@@ -54,12 +54,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-//        listView = (ListView) findViewById(R.id.person_list);
-//
-//
-
-
     }
 
     public class GetList implements Runnable {

@@ -5,6 +5,8 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.telephony.SmsManager;
 import android.widget.RemoteViews;
 
 import com.wanderast.bayanihan.R;
@@ -21,8 +23,8 @@ public class WidgetActivity extends AppWidgetProvider {
             int appWidgetId = appWidgetIds[i];
 
             // Create an Intent to launch ExampleActivity
-            Intent intent = new Intent(context, SosService.class);
-            PendingIntent pendingIntent = PendingIntent.getService(context, 0, intent, 0);
+            Intent intent = new Intent(context, SmsActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
             // Get the layout for the App Widget and attach an on-click listener
             // to the button
