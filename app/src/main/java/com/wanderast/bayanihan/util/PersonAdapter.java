@@ -46,9 +46,9 @@ public class PersonAdapter extends ArrayAdapter<Person> {
         location.setText(person.friendlyDate);
 
         ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
-        if(person.category == "minor") {
+        if(person.category.equals("minor")) {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_green));
-        } else if(person.category == "major") {
+        } else if(person.category.equals("major")) {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_yellow));
         } else {
             avatar.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.circle_red));
